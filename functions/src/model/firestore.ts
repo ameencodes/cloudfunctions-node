@@ -2,7 +2,7 @@
 // import * as admin from "firebase-admin"
 import { firebaseConfig } from "../keys.key"
 import { initializeApp } from "firebase/app"
-import {  getFirestore, collection, getDocs, doc, setDoc, Timestamp } from "firebase/firestore"
+import {  getFirestore, collection, getDocs, doc, addDoc, Timestamp } from "firebase/firestore"
 // initialize firebase app
 
 const app = initializeApp(firebaseConfig)
@@ -22,7 +22,9 @@ export default {
 
     async addUser (user: any) {
         user.timestamp = Timestamp.fromDate(new Date())
-        const record = await setDoc(doc(db, "users"), user)
+        const record = await addDoc(collection(db, "users"), user);
+        // addDoc(doc(db, "users"), user)
+        console.log(record)
         return record
     },
 
